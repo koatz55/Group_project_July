@@ -10,7 +10,7 @@ Our proposed group project is an anime tier list. Users will land on an aggregat
 
 ## Repo
 
-<https://github.com/that-cisco-guy/group_project.git>
+<https://github.com/koatz55/Group_project_July.git>
 
 ## Technical Specs
 
