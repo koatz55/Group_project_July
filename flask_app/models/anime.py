@@ -13,6 +13,59 @@ class Anime:
         self.user_id = db_data['user_id']
         self.creator = None
 
+    def get_likes(self):
+        query = """
+                SELECT u.first_name, u.last_name
+                FROM users u
+                JOIN likes k ON u.id = k.user_id
+                WHERE k.anime_id = %(anime_id)s;
+                """
+        data = {
+            'anime_id': self.id
+        }
+        results = connectToMySQL(db).query_db(query, data)
+        likes = []
+        for row in results:
+            likes.append(f"{row['first_name']} {row['last_name']}")
+        return likes
+
+    @classmethod
+    def toggle_likes_for_user(cls, anime_id, user_id):
+        anime = cls.get_by_id(anime_id)
+        if anime:
+            if user_id in anime.likes:
+                anime.destroy_like(user_id)
+            else:
+                anime.add_like(user_id)
+
+    @classmethod
+    def check_if_like(cls, anime_id, user_id):
+        query = """
+            SELECT * FROM likes
+            WHERE user_id = %(user_id)s AND anime_id = %(anime_id)s;
+        """
+        data = {'user_id': user_id, 'anime_id': anime_id}
+        results = connectToMySQL(db).query_db(query, data)
+        return bool(results)
+
+    @classmethod
+    def add_like(cls, anime_id, user_id):
+        query = """
+                INSERT INTO likes (user_id, anime_id)
+                VALUES (%(user_id)s, %(anime_id)s);
+                """
+        data = {'user_id': user_id, 'anime_id': anime_id}
+        return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
+    def remove_like(cls, anime_id, user_id):
+        query = """
+                DELETE FROM likes
+                WHERE (%(user_id)s, %(anime_id)s);
+                """
+        data = {'user_id': user_id, 'anime_id': anime_id}
+        return connectToMySQL(db).query_db(query, data)
+
     @classmethod
     def get_all(cls):
         query = """
