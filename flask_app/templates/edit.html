@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/update/custom" method="post" class="form-right">
+        <h2 class="text-success">Add your favorite anime</h2>
+        {% with messages = get_flashed_messages(category_filter=['login']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>try again</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <div class="form-group">
+            <label for="name">Anime Title>:</label>
+            <input type="text" name="name" class="form-control" value="name">
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" class="form-control" value="Genre">
+        </div>
+        
+        <input type="submit" value="Login" class="btn btn-success">
+    </form>
+</body>
+</html>

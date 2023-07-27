@@ -17,12 +17,14 @@ class Anime:
     @classmethod
     def get_all(cls):
         query = """
-                SELECT * FROM anime
+                SELECT * FROM animes
                 """
         results = connectToMySQL(db).query_db(query)
+        print('results',results)
         animes = []
-        for anime in results:
-            animes.append(cls(anime))
+        for key in results:
+            animes.append(cls(key))
+            print('animes',animes)
         return animes
     
     @classmethod
@@ -69,6 +71,14 @@ class Anime:
         return connectToMySQL(db).query_db(query,form_data)
     
     @classmethod
+    def update(cls,form_data):
+        query = """
+                UPDATE anime_schema.animes set vote_count = vote_count + 1 
+                WHERE id = %(id)s;
+                """
+        return connectToMySQL(db).query_db(query,form_data)
+
+    @classmethod
     def destroy(cls,data):
         query = """
                 DELETE FROM animes
@@ -98,3 +108,4 @@ class Anime:
             is_valid = False
 
         return is_valid
+    
