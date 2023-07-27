@@ -11,7 +11,7 @@ def login():
     if 'user_id' in session:
         return redirect('/dashboard')
 
-    return render_template('') #template name needed
+    return render_template('login.html') #template name needed
 
 @app.route('/user/login/process', methods=['POST'])
 def login_success():

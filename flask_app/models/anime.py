@@ -11,6 +11,7 @@ class Anime:
         self.created_at = db_data['created_at']
         self.updated_at = db_data['updated_at']
         self.user_id = db_data['user_id']
+        self.vote_count = db_data['vote_count']
         self.creator = None
 
     @classmethod
@@ -54,7 +55,7 @@ class Anime:
                 "first_name": result['first_name'],
                 "last_name": result['last_name'],
                 "email": result['email'],
-                "password": "",
+                "password": '',
                 "created_at": result['users.created_at'],
                 "updated_at": result['users.updated_at']
         }
