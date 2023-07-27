@@ -53,10 +53,10 @@ class User:
         if len(form_data['email']) < 1:
             flash("Email cannot be blank.","register")
             is_valid = False
-        elif not EMAIL_REGEX.match(form_data['email']):
+        if not EMAIL_REGEX.match(form_data['email']):
             flash("Invalid email address.","register")
             is_valid = False
-        elif User.get_by_email(form_data):
+        if User.get_by_email(form_data):
             flash("A user already exists for that email.","register")
             is_valid = False
         if len(form_data['password']) < 8:
