@@ -71,3 +71,11 @@ def destroy_anime(id):
 
     Anime.destroy({'id':id})
     return redirect('/dashboard')
+
+@app.route('/animes/topten')
+def get_topten():
+    if 'user_id' not in session:
+        return redirect('/user/login')
+
+    topten = Anime.get_topten()
+    return render_template('index.html', topten=topten)

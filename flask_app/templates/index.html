@@ -18,16 +18,9 @@
     <div class="box">
         <ol>
             <!-- get top ten -->
-            <li >Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.nagato voluptates consequatur ullam.</li>
+            {% for anime in topten }
+            <li>{% anime['name'] %} <span>{% anime['vote_count']%}</span></li>
+            {% endfor %}
         </ol>
     </div>
 

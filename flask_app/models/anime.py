@@ -18,23 +18,11 @@ class Anime:
     def get_all(cls):
         query = """
                 SELECT * FROM anime
-                JOIN users on anime.user_id = users.id;
                 """
         results = connectToMySQL(db).query_db(query)
         animes = []
-        for row in results:
-            this_anime = cls(row)
-            user_data = {
-                "id": row['users.id'],
-                "first_name": row['first_name'],
-                "last_name": row['last_name'],
-                "email": row['email'],
-                "password": "",
-                "created_at": row['users.created_at'],
-                "updated_at": row['users.updated_at']
-            }
-            this_anime.creator = user.User(user_data)
-            animes.append(this_anime)
+        for anime in results:
+            animes.append(cls(anime))
         return animes
     
     @classmethod
@@ -88,6 +76,16 @@ class Anime:
                 """
         return connectToMySQL(db).query_db(query,data)
     
+    @classmethod
+    def get_top_ten(cls):
+        query ="""
+                select name, vote_count
+                group by vote_count
+                order by desc
+                limit 10;
+                """
+        return connectToMySQL(db).query_db(query)
+
     @staticmethod
     def validate_anime(form_data):
         is_valid = True

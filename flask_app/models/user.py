@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from flask_app import bcrypt
+from flask_bcrypt import bcrypt
 import re
 
 db = "anime_schema"
