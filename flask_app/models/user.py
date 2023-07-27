@@ -1,6 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from flask_bcrypt import bcrypt
 import re
 
 db = "anime_schema"
@@ -16,18 +15,12 @@ class User:
         self.updated_at = db_data['updated_at']
 
     @classmethod
-    def save(cls,form_data):
-        hashed_data = {
-            'first_name': form_data['first_name'],
-            'last_name': form_data['last_name'],
-            'email': form_data['email'],
-            'password': bcrypt.generate_password_hash(form_data['password']),
-        }
+    def save(cls,data):
         query = """
                 INSERT INTO users (first_name,last_name,email,password)
                 VALUES (%(first_name)s,%(last_name)s,%(email)s,%(password)s);
                 """
-        return connectToMySQL(db).query_db(query,hashed_data)
+        return connectToMySQL(db).query_db(query,data)
 
     @classmethod
     def get_by_email(cls,data):
@@ -69,7 +62,7 @@ class User:
         if len(form_data['password']) < 8:
             flash("Password must be at least 8 characters long.","register")
             is_valid = False
-        if form_data['password'] != form_data['confirm_password']:
+        if form_data['password'] != form_data['confirm']:
             flash("Passwords must match.","register")
             is_valid = False
         if len(form_data['first_name']) < 3:
@@ -81,19 +74,19 @@ class User:
 
         return is_valid
 
-    @staticmethod
-    def validate_login(form_data):
-        if not EMAIL_REGEX.match(form_data['email']):
-            flash("Invalid email/password.","login")
-            return False
+    # @staticmethod
+    # def validate_login(form_data):
+    #     if not EMAIL_REGEX.match(form_data['email']):
+    #         flash("Invalid email/password.","login")
+    #         return False
 
-        user = User.get_by_email(form_data)
-        if not user:
-            flash("Invalid email/password.","login")
-            return False
+    #     user = User.get_by_email(form_data)
+    #     if not user:
+    #         flash("Invalid email/password.","login")
+    #         return False
         
-        if not bcrypt.check_password_hash(user.password, form_data['password']):
-            flash("Invalid email/password.","login")
-            return False
+    #     if not bcrypt(user.password, form_data['password']):
+    #         flash("Invalid email/password.","login")
+    #         return False
         
-        return user
+        # return user
