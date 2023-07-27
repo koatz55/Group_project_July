@@ -11,7 +11,7 @@ def dashboard():
     if not user:
         return redirect('/user/logout')
         
-    return render_template('dashboard.html', user=user, animes=Anime.get_all())
+    return render_template('dashboard.html', animes=Anime.get_all())
 
 @app.route('/anime/new')
 def create_anime():
@@ -72,10 +72,12 @@ def destroy_anime(id):
     Anime.destroy({'id':id})
     return redirect('/dashboard')
 
+@app.route('/vote')
+def vote(id):
+
 @app.route('/animes/topten')
 def get_topten():
     if 'user_id' not in session:
         return redirect('/user/login')
 
-    topten = Anime.get_topten()
-    return render_template('index.html', topten=topten)
+    return render_template('index.html', topten = Anime.get_topten())

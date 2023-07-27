@@ -16,35 +16,38 @@
     </section>
 
     <div class="box">
-        <!-- <h1>JavaScript Arrays</h1>
-        <h2>The forEach() Method</h2>
-        
-        <p>Call a function once for each array element:</p> -->
-        <selection id="demo" class="section"></selection>
-
+        <form action="/vote">
+            <selection class="section">
+                <select >
+                    {% for anime in animes %}
+                    <option value={{anime.id}}>{{anime.name}}</option>
+                    {% endfor %}
+                </select>
+            </selection>
+            <input type="submit" value="vote" class="btn btn-success">
+        </form>
         <br>
         <div id="demo2" class="section"></div>
-  
-         
-        <!-- <select id="v">
-            <option>
-                number 1
-            </option>
-        </select> -->
+        
     </div>
     <div class="box">
         
     </div>
-        <script>
-            const numbers = [1, 2, 3, 4, 5,];
-            
-            let txt = "";
-            
-            numbers.forEach(myFunction);
-            document.getElementById("demo").innerHTML = txt
+        
+    <!-- <h1>JavaScript Arrays</h1>
+    <h2>The forEach() Method</h2>
+    
+    <p>Call a function once for each array element:</p> -->
+    <!-- <script>
+        const numbers = [1, 2, 3, 4, 5,];
+        
+        let txt = "";
+        
+        numbers.forEach(myFunction);
+        document.getElementById("demo").innerHTML = txt
             
             function myFunction(value, index, array) {
-            txt += "<select><option>"+"number " + value+ "</option>{% for dojo in all_dojos %}<option value={{dojo.id}}>{{dojo.name}}</option>{% endfor %} </select>" + "<br>"; 
+            txt += "<select><option>"+"number " + value+ "; 
             }
             let txt2 = "";
             const numbers2= [6, 7, 8, 9, 10];
@@ -54,6 +57,6 @@
             function myFunction2(value, index, array) {
             txt2 += "<select><option>"+"number " + value+ "</option></option>{% for dojo in all_dojos %}<option value={{dojo.id}}>{{dojo.name}}</option>{% endfor %} </select>" + "<br>";
             }
-        </script>
+        </script> -->
 </body>
 </html>
