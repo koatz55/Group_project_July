@@ -15,13 +15,17 @@
         </nav>
     </section>
 
-    <div class="box">
+    <div class="box">  
+        {% for anime in topten %}
         <ol>
             <!-- get top ten -->
-            {% for anime in topten }
-            <li>{% anime['name'] %} <span>{% anime['vote_count']%}</span></li>
-            {% endfor %}
-        </ol>
+          
+            <li>{{anime['name'] }} </li>
+            <span>{{ anime['vote_count']}}</span>
+            
+           
+        </ol> 
+        {% endfor %}
     </div>
 
 </body>

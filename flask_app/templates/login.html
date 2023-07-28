@@ -42,7 +42,7 @@
             </div>
             <input type="submit" value="Register" class="btn btn-primary">
         </form>
-        <form action="/login" method="post" class="form-right">
+        <form action="/user/login/process" method="post" class="form-right">
             <h2 class="text-success">Login</h2>
             {% with messages = get_flashed_messages(category_filter=['login']) %}
                 {% if messages %}

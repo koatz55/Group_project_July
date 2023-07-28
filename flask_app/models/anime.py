@@ -31,26 +31,11 @@ class Anime:
     def get_by_id(cls,data):
         query = """
                 SELECT * FROM animes
-                JOIN users on animes.user_id = users.id
                 WHERE animes.id = %(id)s;
                 """
         result = connectToMySQL(db).query_db(query,data)
-        if not result:
-            return False
-
-        result = result[0]
-        this_anime = cls(result)
-        user_data = {
-                "id": result['users.id'],
-                "first_name": result['first_name'],
-                "last_name": result['last_name'],
-                "email": result['email'],
-                "password": '',
-                "created_at": result['users.created_at'],
-                "updated_at": result['users.updated_at']
-        }
-        this_anime.creator = user.User(user_data)
-        return this_anime
+        anime = cls(result[0])
+        return anime
 
     @classmethod
     def save(cls, form_data):
@@ -63,18 +48,17 @@ class Anime:
     @classmethod
     def update(cls,form_data):
         query = """
-                UPDATE animes
-                SET name = %(name)s,
-                genre = %(genre)s,
+                UPDATE anime_schema.animes SET name = %(name)s,
+                genre = %(genre)s
                 WHERE id = %(id)s;
                 """
         return connectToMySQL(db).query_db(query,form_data)
     
     @classmethod
-    def update(cls,form_data):
+    def update_vote(cls,form_data):
         query = """
                 UPDATE anime_schema.animes set vote_count = vote_count + 1 
-                WHERE id = %(id)s;
+                WHERE anime.id = %(id)s;
                 """
         return connectToMySQL(db).query_db(query,form_data)
 
@@ -87,14 +71,17 @@ class Anime:
         return connectToMySQL(db).query_db(query,data)
     
     @classmethod
-    def get_top_ten(cls):
-        query ="""
-                select name, vote_count
-                group by vote_count
-                order by desc
-                limit 10;
-                """
-        return connectToMySQL(db).query_db(query)
+    def get_topten(cls):
+        query ="""SELECT COUNT(vote_count), name
+FROM anime_schema.animes 
+GROUP BY name
+ORDER BY COUNT(vote_count) DESC;"""
+        results = connectToMySQL(db).query_db(query)
+        topten = []
+        for key in results:
+            topten.append(cls(key))
+            print('topten',topten)
+        return topten
 
     @staticmethod
     def validate_anime(form_data):

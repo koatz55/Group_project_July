@@ -16,22 +16,31 @@
     </section>
 
     <div class="box">
-        <form action="/vote">
-            <selection class="section">
-                <select >
+       <selection class="section">
+            <table class="table">
+                    <thead>
+                        <th>name</th>
+                        <th>actions</th>
+                    </thead>
+                    <tbody class="tbody">
                     {% for anime in animes %}
-                    <option value={{anime.id}}>{{anime.name}}</option>
+                        <tr class="tr" name= "id" value={{anime.id}} for="id">{{anime.name}}</tr>
+                        <tr class="tr">
+                            <a href="/vote/{{anime['id']}}">vote</a>
+                            <a href="animes/edit/{{anime['id']}}">Edit</a>
+                            <a href="/animes/destroy/{{anime['id']}}">Delete</a>
+                        </tr>
                     {% endfor %}
-                </select>
-            </selection>
-            <input type="submit" value="vote" class="btn btn-success">
-        </form>
+                    </tbody>
+            </table>
+        </selection>
         <br>
         <div id="demo2" class="section"></div>
         
     </div>
     <div class="box">
-        
+        <a href="/anime/new"> new anime<a>
+            <a href="/logout">logout<a>
     </div>
         
     <!-- <h1>JavaScript Arrays</h1>

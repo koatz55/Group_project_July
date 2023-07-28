@@ -18,7 +18,7 @@ def create_anime():
     if 'user_id' not in session:
         return redirect('/user/login')
 
-    return render_template('') #template name needed
+    return render_template('create.html') #template name needed
 
 @app.route('/animes/new/process', methods=['POST'])
 def process_anime():
@@ -46,8 +46,7 @@ def view_anime(id):
 def edit_anime(id):
     if 'user_id' not in session:
         return redirect('/user/login')
-
-    return render_template('',anime=Anime.get_by_id({'id': id})) # template name needed
+    return render_template('edit.html',anime=Anime.get_by_id({'id': id})) # template name needed
 
 @app.route('/animes/edit/process/<int:id>', methods=['POST'])
 def process_edit_anime(id):
@@ -72,12 +71,17 @@ def destroy_anime(id):
     Anime.destroy({'id':id})
     return redirect('/dashboard')
 
-@app.route('/vote')
+@app.route('/vote/<int:id>')
 def vote(id):
+    id = {
+        'id':request.form
+    }
+    Anime.update_vote(id)
+    return redirect('/animes/topten')
 
 @app.route('/animes/topten')
 def get_topten():
     if 'user_id' not in session:
         return redirect('/user/login')
-
-    return render_template('index.html', topten = Anime.get_topten())
+    topten  = Anime.get_topten()
+    return render_template('index.html', topten=topten )

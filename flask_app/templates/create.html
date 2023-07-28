@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/create" method="post" class="form-right">
+    <form action="/animes/new/process" method="post" class="form-right">
         <h2 class="text-success">Add your favorite anime</h2>
         {% with messages = get_flashed_messages(category_filter=['login']) %}
             {% if messages %}
@@ -27,7 +27,7 @@
             <input type="text" name="genre" class="form-control">
         </div>
         
-        <input type="submit" value="Login" class="btn btn-success">
+        <input type="submit" value="create" class="btn btn-success">
     </form>
 </body>
 </html>

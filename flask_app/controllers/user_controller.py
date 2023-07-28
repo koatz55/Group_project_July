@@ -45,7 +45,7 @@ def register_success():
     session['user_id'] = user_id
     return redirect('/dashboard')
 
-@app.route('/user/logout')
+@app.route('/logout')
 def logout():
     if 'user_id' in session:
         session.pop('user_id')
