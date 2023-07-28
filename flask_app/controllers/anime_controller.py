@@ -67,7 +67,19 @@ def process_edit_anime(id):
 @app.route('/animes/destroy/<int:id>')
 def destroy_anime(id):
     if 'user_id' not in session:
-        return redirect('/user/login')
+        return redirect('/user/login') # Correct template
 
     Anime.destroy({'id':id})
-    return redirect('/dashboard')
+    return redirect('/dashboard') # Correct template?
+
+@app.route('/add_or_remove_like', methods=['POST'])
+def add_or_remove_like():
+    anime_id = request.form.get('anime_id', type=int)
+    user_id = session.get('user_id')
+
+    if Anime.check_if_like(anime_id, user_id):
+        Anime.remove_like(anime_id, user_id)
+    else:
+        Anime.add_like(anime_id, user_id)
+
+    return redirect(f'/anime/{anime_id}') # correct template?
