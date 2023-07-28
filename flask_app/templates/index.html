@@ -11,21 +11,19 @@
     <section class="hero is-danger">
         <nav class="">
             <h2>Anime top ten</h2>
-            <a href="/home">home</a>
+            <a href="/dashboard">home</a>
         </nav>
     </section>
 
     <div class="box">  
-        {% for anime in topten %}
         <ol>
+            {% for anime in topten %}
             <!-- get top ten -->
           
-            <li>{{anime['name'] }} </li>
-            <span>{{ anime['vote_count']}}</span>
-            
-           
+            <li>{{anime['name']}} <span color="blue">{{anime['vote_count']}}</span></li>
+
+            {% endfor %}
         </ol> 
-        {% endfor %}
     </div>
 
 </body>

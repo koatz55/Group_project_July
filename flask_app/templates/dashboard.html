@@ -11,7 +11,7 @@
     <section class="hero is-danger">
         <nav class="">
             <h2>Your top ten</h2>
-            <a href="/index" class="button">Anime top ten</a>
+            <a href="/animes/topten" class="button">Anime top ten</a>
         </nav>
     </section>
 
@@ -24,11 +24,14 @@
                     </thead>
                     <tbody class="tbody">
                     {% for anime in animes %}
-                        <tr class="tr" name= "id" value={{anime.id}} for="id">{{anime.name}}</tr>
                         <tr class="tr">
-                            <a href="/vote/{{anime['id']}}">vote</a>
-                            <a href="animes/edit/{{anime['id']}}">Edit</a>
-                            <a href="/animes/destroy/{{anime['id']}}">Delete</a>
+                            <td class="td" name= "id" value={{anime.id}} for="id">{{anime.name}}</td>
+
+                            <td class="td">
+                                <a href="/vote/{{anime['id']}}">vote</a>
+                                <a href="animes/edit/{{anime['id']}}">Edit</a>
+                                <a href="/animes/destroy/{{anime['id']}}">Delete</a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

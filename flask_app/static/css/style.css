@@ -24,4 +24,5 @@
 }
 body {
     background-image: url('/flask_app/static/images/graybackground.jpeg');
+    background-color: gray;
 }

@@ -73,15 +73,12 @@ def destroy_anime(id):
 
 @app.route('/vote/<int:id>')
 def vote(id):
-    id = {
-        'id':request.form
-    }
-    Anime.update_vote(id)
+    Anime.update_vote({'id':id})
     return redirect('/animes/topten')
 
 @app.route('/animes/topten')
 def get_topten():
-    if 'user_id' not in session:
-        return redirect('/user/login')
+    # if 'user_id' not in session:
+    #     return redirect('/user/login')
     topten  = Anime.get_topten()
     return render_template('index.html', topten=topten )

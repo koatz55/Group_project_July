@@ -40,8 +40,8 @@ class Anime:
     @classmethod
     def save(cls, form_data):
         query = """
-                INSERT INTO animes (name,genre,user_id)
-                VALUES (%(name)s,%(genre)s,%(user_id)s);
+                INSERT INTO animes (name,genre,user_id,vote_count)
+                VALUES (%(name)s,%(genre)s,%(user_id)s,0);
                 """
         return connectToMySQL(db).query_db(query,form_data)
 
@@ -58,7 +58,7 @@ class Anime:
     def update_vote(cls,form_data):
         query = """
                 UPDATE anime_schema.animes set vote_count = vote_count + 1 
-                WHERE anime.id = %(id)s;
+                WHERE id = %(id)s;
                 """
         return connectToMySQL(db).query_db(query,form_data)
 
@@ -72,14 +72,15 @@ class Anime:
     
     @classmethod
     def get_topten(cls):
-        query ="""SELECT COUNT(vote_count), name
-FROM anime_schema.animes 
-GROUP BY name
-ORDER BY COUNT(vote_count) DESC;"""
+        query ="""SELECT *
+FROM anime_schema.animes
+GROUP BY id
+ORDER BY (vote_count) DESC
+limit 10;;"""
         results = connectToMySQL(db).query_db(query)
         topten = []
-        for key in results:
-            topten.append(cls(key))
+        for i in results:
+            topten.append(cls(i))
             print('topten',topten)
         return topten
 
